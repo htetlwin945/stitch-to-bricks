@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100">
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Navigation -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-slate-200 dark:border-slate-800 px-6 py-4 lg:px-20 bg-white dark:bg-background-dark/50 backdrop-blur-md sticky top-0 z-50">
+<div class="flex items-center gap-3">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined text-xl">auto_awesome</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-xl font-bold tracking-tight">SaaS AI</h2>
+</div>
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Product</a>
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Solutions</a>
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Pricing</a>
+<a class="text-slate-600 dark:text-slate-400 text-sm font-medium hover:text-primary transition-colors" href="#">Docs</a>
+</nav>
+<div class="flex items-center gap-3">
+<button class="hidden sm:flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 text-slate-700 dark:text-slate-200 text-sm font-semibold hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+                Log In
+            </button>
+<button class="flex min-w-[100px] cursor-pointer items-center justify-center rounded-lg h-10 px-5 bg-primary text-white text-sm font-bold shadow-lg shadow-primary/20 hover:opacity-90 transition-all">
+                Get Started
+            </button>
+</div>
+</header>
+<!-- Hero Section -->
+<main class="flex-1 flex items-center justify-center px-6 lg:px-20 py-12 lg:py-24">
+<div class="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<!-- Content Left -->
+<div class="flex flex-col gap-8 order-2 lg:order-1">
+<div class="inline-flex items-center self-start px-3 py-1 rounded-full bg-teal-500/10 border border-teal-500/20">
+<span class="text-teal-600 dark:text-teal-400 text-xs font-bold tracking-wider uppercase">Introducing v2.0</span>
+</div>
+<div class="flex flex-col gap-4">
+<h1 class="text-slate-900 dark:text-white text-5xl lg:text-7xl font-black leading-[1.1] tracking-tight">
+                        Build faster with <span class="text-primary">AI-powered</span> tools
+                    </h1>
+<p class="text-slate-600 dark:text-slate-400 text-lg lg:text-xl font-normal leading-relaxed max-w-[540px]">
+                        Streamline your workflow, reduce errors, and ship products 10x faster with our intelligent automation platform.
+                    </p>
+</div>
+<div class="flex flex-wrap items-center gap-4">
+<button class="flex min-w-[160px] cursor-pointer items-center justify-center rounded-xl h-14 px-8 bg-primary text-white text-lg font-bold shadow-xl shadow-primary/30 hover:-translate-y-0.5 transition-all">
+                        Get Started Free
+                    </button>
+<button class="flex items-center gap-2 px-6 h-14 text-slate-700 dark:text-slate-200 text-lg font-bold group hover:text-primary transition-colors">
+<span>Watch Demo</span>
+<span class="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
+</button>
+</div>
+<div class="pt-4 flex items-center gap-6 border-t border-slate-200 dark:border-slate-800">
+<div class="flex -space-x-3">
+<img alt="User" class="size-10 rounded-full border-2 border-white dark:border-background-dark" data-alt="Profile photo of a professional woman" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDB-eNcuQ-TeiMs-YdRJFRLLth_LQnpjd7eyhAc5Ll2dNC-thOU6awv33pAn3N5Iqxj7tMPEHp1001_43a819-k4n9YTOJBTApqSLxfeX2PKRMg0Q1dsJ0tYfErhN8QY7dYa4j5f1NsnQHSPajJVW18hyrIumCCyNUT226OWblmPKUvjSaX6niy3yhdvelWb-pLF0vws7ZgV_Q_xHEfArioB7DWo_-z9NxgeM9dBSxiEjc1xQq2HmY1bexG0HxOaWh58Kel-Buu1C4e"/>
+<img alt="User" class="size-10 rounded-full border-2 border-white dark:border-background-dark" data-alt="Profile photo of a professional man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7NfMB9p5Qw77NfJksp4X_tfpY94pHYewHTTsWF5pj9ylwedFZWWW6Nn_3xE9aJkj5XVZZl7hgtZbiDz1op7pmOFMjuMcgdCTtQMU-U9GtBQW7fzqxJGNphUClbBq44CmwQ8l0DzOCnB1tS9IwLsZFeEkHMkKnzbP4s0Ee9je6w8g37lOwCtYZ0x_GrjL6TViPT7VT22EEXIywr0XrBXNorVA-X4NNw6D5IY6YAwSFKnRHD7UR0V0dAHbCk8zqxDJWbfnL1geQiM8Z"/>
+<img alt="User" class="size-10 rounded-full border-2 border-white dark:border-background-dark" data-alt="Profile photo of a creative designer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvIU7oy68SDKR9DVfkYUaScX5o7r335NS3e3A7Ij7V-oDun2NQp1doiAakFgS8t3GIs5Mz_GCloONhKrCam9MeBiJLTuMNN3JVb0LikdFSsEALF8bhXcJEcJTa_fyfcN4AvHp_5x6XnyF_hImMfSk8N9LBxPac8cXRAD4Yejj_s45Ubu4nqW_TcDVzpAaNSN9K-bWdTuWKu8r5uAmc0Wr_A7PZu7acjrb4UTwmH33G47mQgN11XWGruuyTdhl1rlllyve_I0PLAPjU"/>
+</div>
+<div class="flex flex-col">
+<span class="text-slate-900 dark:text-white font-bold text-sm">2,000+ teams</span>
+<span class="text-slate-500 text-xs font-medium uppercase tracking-wide">Ship daily with SaaS AI</span>
+</div>
+</div>
+</div>
+<!-- Dashboard Image Right -->
+<div class="relative order-1 lg:order-2">
+<!-- Decorative Gradients -->
+<div class="absolute -top-20 -right-20 w-80 h-80 bg-primary/20 blur-[100px] rounded-full"></div>
+<div class="absolute -bottom-20 -left-20 w-80 h-80 bg-teal-500/10 blur-[100px] rounded-full"></div>
+<div class="relative rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-2xl bg-white dark:bg-slate-900 aspect-video lg:aspect-square flex items-center justify-center">
+<div class="w-full h-full bg-slate-950 p-6 flex flex-col gap-6" data-alt="Dark mode software dashboard with code and charts">
+<!-- Mockup Top Bar -->
+<div class="flex items-center justify-between">
+<div class="flex gap-2">
+<div class="size-3 rounded-full bg-red-500/40"></div>
+<div class="size-3 rounded-full bg-yellow-500/40"></div>
+<div class="size-3 rounded-full bg-green-500/40"></div>
+</div>
+<div class="h-6 w-32 bg-slate-800 rounded-lg"></div>
+</div>
+<!-- Mockup Content -->
+<div class="grid grid-cols-3 gap-4 h-full">
+<div class="col-span-1 flex flex-col gap-4">
+<div class="h-1/3 bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-col gap-2">
+<div class="h-2 w-1/2 bg-slate-700 rounded"></div>
+<div class="h-8 w-full bg-primary/20 border border-primary/30 rounded flex items-center px-2">
+<div class="h-2 w-full bg-primary/40 rounded"></div>
+</div>
+</div>
+<div class="h-2/3 bg-slate-900 border border-slate-800 rounded-xl p-4 flex flex-col gap-2">
+<div class="h-2 w-1/3 bg-slate-700 rounded mb-2"></div>
+<div class="space-y-2">
+<div class="h-1.5 w-full bg-slate-800 rounded"></div>
+<div class="h-1.5 w-[90%] bg-slate-800 rounded"></div>
+<div class="h-1.5 w-[95%] bg-slate-800 rounded"></div>
+<div class="h-1.5 w-[70%] bg-slate-800 rounded"></div>
+</div>
+</div>
+</div>
+<div class="col-span-2 bg-slate-900 border border-slate-800 rounded-xl p-6 relative overflow-hidden">
+<div class="flex justify-between mb-8">
+<div class="space-y-2">
+<div class="h-3 w-32 bg-slate-700 rounded"></div>
+<div class="h-2 w-24 bg-slate-800 rounded"></div>
+</div>
+<div class="size-10 rounded-full bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-xl">auto_awesome</span>
+</div>
+</div>
+<div class="space-y-3 font-mono text-[10px]">
+<div class="flex gap-4">
+<span class="text-slate-700">01</span>
+<span class="text-blue-400">const</span>
+<span class="text-white">optimizeWorkflow = () =&gt; {</span>
+</div>
+<div class="flex gap-4 pl-4">
+<span class="text-slate-700">02</span>
+<span class="text-purple-400">return</span>
+<span class="text-white">aiEngine.process({</span>
+</div>
+<div class="flex gap-4 pl-8">
+<span class="text-slate-700">03</span>
+<span class="text-teal-400">mode:</span>
+<span class="text-orange-300">'maximum_speed'</span>
+</div>
+<div class="flex gap-4 pl-4">
+<span class="text-slate-700">04</span>
+<span class="text-white">});</span>
+</div>
+</div>
+<div class="absolute bottom-6 left-6 right-6 h-24 flex items-end gap-2">
+<div class="flex-1 bg-primary/30 h-[40%] rounded-t-sm"></div>
+<div class="flex-1 bg-primary/40 h-[60%] rounded-t-sm"></div>
+<div class="flex-1 bg-primary/20 h-[30%] rounded-t-sm"></div>
+<div class="flex-1 bg-primary/60 h-[80%] rounded-t-sm"></div>
+<div class="flex-1 bg-primary h-full rounded-t-sm"></div>
+<div class="flex-1 bg-primary/50 h-[70%] rounded-t-sm"></div>
+<div class="flex-1 bg-primary/30 h-[45%] rounded-t-sm"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating Card -->
+<div class="absolute -bottom-10 -right-6 lg:-right-10 bg-white dark:bg-slate-800 p-4 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 flex items-center gap-4 max-w-[200px]">
+<div class="size-10 rounded-full bg-green-500/20 flex items-center justify-center text-green-500">
+<span class="material-symbols-outlined">speed</span>
+</div>
+<div class="flex flex-col">
+<span class="text-slate-900 dark:text-white font-bold text-lg">10x</span>
+<span class="text-slate-500 text-xs font-medium">Faster Delivery</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

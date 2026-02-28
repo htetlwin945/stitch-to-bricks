@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: password
+    volumes:
+      - db_data:/var/lib/mysql
+
+  wordpress:
+    image: wordpress:latest
+    ports:
+      - "8080:80"
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: password
+      WORDPRESS_DB_NAME: wordpress
+      STB_NODE_PROXY_URL: http://mcp-proxy:3000/
+    volumes:
+      - .:/var/www/html/wp-content/plugins/stitch-to-bricks
+      - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+    depends_on:
+      - db
+      - mcp-proxy
+
+  mcp-proxy:
+    build:
+      context: ./node-mcp-proxy
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    restart: always
+    environment:
+      - STITCH_API_KEY=${STITCH_API_KEY:-AQ.Ab8RN6Lg5osvzyXTZ6ipnHxaAYnE2h7tlAimsQfhk0azDfGxlA}
+    volumes:
+      - ./node-mcp-proxy/server.js:/app/server.js:ro
+
+volumes:
+  db_data:

@@ -1,0 +1,286 @@
+{
+    "content": [
+        {
+            "id": "84fd7d",
+            "name": "section",
+            "parent": 0,
+            "children": [
+                "32ae7e"
+            ],
+            "settings": {
+                "_cssGlobalClasses": [
+                    "rqdbgk"
+                ]
+            },
+            "label": "Header 5"
+        },
+        {
+            "id": "32ae7e",
+            "name": "container",
+            "parent": "84fd7d",
+            "children": [
+                "d2031a",
+                "361379",
+                "b1ae3f"
+            ],
+            "settings": {
+                "_cssGlobalClasses": [
+                    "phhilv"
+                ]
+            }
+        },
+        {
+            "id": "d2031a",
+            "name": "block",
+            "parent": "32ae7e",
+            "children": [
+                "d88b23"
+            ],
+            "settings": {
+                "_cssGlobalClasses": [
+                    "peljgd"
+                ]
+            },
+            "label": "Brand"
+        },
+        {
+            "id": "d88b23",
+            "name": "logo",
+            "parent": "d2031a",
+            "children": [],
+            "settings": {
+                "logoText": "{site_title}",
+                "_cssGlobalClasses": [
+                    "dhqqvx"
+                ],
+                "logo": {
+                    "url": "https:\/\/core.bricksmaven.com\/wp-content\/uploads\/2023\/07\/ALPHA.svg",
+                    "external": true,
+                    "filename": "ALPHA.svg"
+                }
+            },
+            "themeStyles": []
+        },
+        {
+            "id": "361379",
+            "name": "block",
+            "parent": "32ae7e",
+            "children": [
+                "773048"
+            ],
+            "settings": {
+                "_cssGlobalClasses": [
+                    "ljfyce"
+                ]
+            },
+            "label": "Nav"
+        },
+        {
+            "id": "773048",
+            "name": "nav-menu",
+            "parent": "361379",
+            "children": [],
+            "settings": {
+                "_cssGlobalClasses": [
+                    "yfhqzq"
+                ],
+                "menu": "110",
+                "menuIcon": {
+                    "library": "ionicons",
+                    "icon": "ion-ios-arrow-down"
+                },
+                "subMenuIcon": {
+                    "library": "ionicons",
+                    "icon": "ion-ios-arrow-down"
+                },
+                "mobileMenu": "tablet_portrait"
+            },
+            "themeStyles": []
+        },
+        {
+            "id": "b1ae3f",
+            "name": "div",
+            "parent": "32ae7e",
+            "children": [
+                "a78d7e",
+                "9ef955"
+            ],
+            "settings": {
+                "_cssGlobalClasses": [
+                    "hmlnax"
+                ]
+            },
+            "label": "Search and CTA"
+        },
+        {
+            "id": "a78d7e",
+            "name": "search",
+            "parent": "b1ae3f",
+            "children": [],
+            "settings": {
+                "searchOverlayTitle": "Search site",
+                "_cssGlobalClasses": [
+                    "hqxtnx"
+                ],
+                "searchType": "overlay",
+                "icon": {
+                    "library": "ionicons",
+                    "icon": "ion-ios-search"
+                }
+            },
+            "themeStyles": []
+        },
+        {
+            "id": "9ef955",
+            "name": "button",
+            "parent": "b1ae3f",
+            "children": [],
+            "settings": {
+                "text": "Call to action",
+                "style": "primary",
+                "_cssGlobalClasses": [
+                    "dwzlle",
+                    "btn_c",
+                    "small_c"
+                ],
+                "tag": "a"
+            }
+        }
+    ],
+    "source": "bricksCopiedElements",
+    "sourceUrl": "https:\/\/core.bricksmaven.com",
+    "version": "1.9.7.1",
+    "globalClasses": [
+        {
+            "id": "rqdbgk",
+            "name": "bm-header-5",
+            "settings": {
+                "_cssCustom:mobile_landscape": ".header-5 {\n\toverflow: hidden;\n}",
+                "_padding": {
+                    "top": "var(--space-xs)",
+                    "bottom": "var(--space-xs)"
+                }
+            }
+        },
+        {
+            "id": "phhilv",
+            "name": "bm-header-5__container",
+            "settings": {
+                "_position": "relative",
+                "_display": "flex",
+                "_direction": "row",
+                "_flexWrap": "nowrap",
+                "_alignItems": "center",
+                "_columnGap": "var(--space-m)",
+                "_justifyContent:tablet_portrait": "space-between"
+            }
+        },
+        {
+            "id": "peljgd",
+            "name": "bm-header-5__brand",
+            "settings": {
+                "_gridItemColumnSpan:mobile_landscape": "span 3",
+                "_width": "auto"
+            }
+        },
+        {
+            "id": "dhqqvx",
+            "name": "bm-header-5__logo",
+            "settings": {
+                "_cssCustom:mobile_landscape": ".header-5__logo.white path {\n\tfill: var(--white);\n}",
+                "logoHeight": "100%",
+                "logoWidth": "100%"
+            }
+        },
+        {
+            "id": "ljfyce",
+            "name": "bm-header-5__nav-wrapper",
+            "settings": {
+                "_gridItemColumnSpan": "span 6",
+                "_gridItemColumnSpan:mobile_landscape": "8",
+                "_order:tablet_portrait": "3",
+                "_width:tablet_portrait": "auto",
+                "_alignItems:tablet_portrait": "flex-end"
+            }
+        },
+        {
+            "id": "yfhqzq",
+            "name": "bm-header-5__menu",
+            "settings": {
+                "menuTypography": {
+                    "color": {
+                        "raw": "var(--text-black)"
+                    }
+                },
+                "subMenuBackground:hover": {
+                    "color": {
+                        "id": "acss_import_primary",
+                        "name": "primary",
+                        "raw": "var(--primary)"
+                    }
+                },
+                "menuMargin": {
+                    "left": "0",
+                    "right": "3rem"
+                },
+                "_margin:mobile_landscape": {
+                    "left": "auto",
+                    "right": "var(--space-xs)"
+                },
+                "mobileMenuToggleColor": {
+                    "raw": "var(--text-body)",
+                    "id": "01H7SXV8GB7CBRPWMX4FH73YS2",
+                    "name": "text-body"
+                }
+            }
+        },
+        {
+            "id": "hmlnax",
+            "name": "bm-header-5__right",
+            "settings": {
+                "_display": "flex",
+                "_justifyContent": "flex-end",
+                "_gridItemColumnSpan": "-1",
+                "_alignItems": "center",
+                "_columnGap": "var(--space-m)",
+                "_width": "35%",
+                "_margin:tablet_portrait": {
+                    "left": "auto"
+                },
+                "_display:mobile_portrait": "none"
+            }
+        },
+        {
+            "id": "hqxtnx",
+            "name": "bm-header-5__search",
+            "settings": {
+                "iconWidth": "auto",
+                "iconTypography": {
+                    "font-size": "var(--text-xl)",
+                    "color": {
+                        "raw": "var(--text-body)",
+                        "id": "01H7SXV8GB7CBRPWMX4FH73YS2",
+                        "name": "text-body"
+                    }
+                },
+                "_display:mobile_landscape": "none"
+            }
+        },
+        {
+            "id": "dwzlle",
+            "name": "bm-header-5__cta",
+            "settings": []
+        },
+        {
+            "name": "btn",
+            "id": "btn_c",
+            "settings": []
+        },
+        {
+            "name": "small",
+            "id": "small_c",
+            "settings": []
+        }
+    ],
+    "globalElements": []
+}

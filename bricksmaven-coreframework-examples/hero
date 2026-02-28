@@ -1,0 +1,370 @@
+{
+    "content": [
+        {
+            "id": "45f453",
+            "name": "section",
+            "parent": 0,
+            "children": [
+                "bdb2c7"
+            ],
+            "settings": {
+                "_cssGlobalClasses": [
+                    "acoanv"
+                ]
+            },
+            "label": "Hero 40"
+        },
+        {
+            "id": "bdb2c7",
+            "name": "container",
+            "parent": "45f453",
+            "children": [
+                "c42ecb",
+                "ad64fc"
+            ],
+            "settings": {
+                "_cssGlobalClasses": [
+                    "ftjejk"
+                ]
+            }
+        },
+        {
+            "id": "c42ecb",
+            "name": "block",
+            "parent": "bdb2c7",
+            "children": [
+                "4ed83c"
+            ],
+            "settings": {
+                "_cssGlobalClasses": [
+                    "yavznh",
+                    "max-width-60_c"
+                ]
+            },
+            "label": "Content"
+        },
+        {
+            "id": "4ed83c",
+            "name": "div",
+            "parent": "c42ecb",
+            "children": [
+                "f6e187",
+                "135801",
+                "aec163",
+                "c0aca8"
+            ],
+            "settings": {
+                "_cssGlobalClasses": [
+                    "muadbq"
+                ]
+            },
+            "label": "Intro"
+        },
+        {
+            "id": "f6e187",
+            "name": "heading",
+            "parent": "4ed83c",
+            "children": [],
+            "settings": {
+                "text": "Long headline to turn your visitors into customers",
+                "tag": "h1",
+                "_cssGlobalClasses": [
+                    "wnpikx"
+                ]
+            }
+        },
+        {
+            "id": "135801",
+            "name": "text-basic",
+            "parent": "4ed83c",
+            "children": [],
+            "settings": {
+                "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                "_cssGlobalClasses": [
+                    "prgilv"
+                ],
+                "tag": "p"
+            }
+        },
+        {
+            "id": "aec163",
+            "name": "text-basic",
+            "parent": "4ed83c",
+            "children": [],
+            "settings": {
+                "text": "Accent heading",
+                "_cssGlobalClasses": [
+                    "iohzim"
+                ],
+                "tag": "span"
+            },
+            "label": "Tagline"
+        },
+        {
+            "id": "c0aca8",
+            "name": "div",
+            "parent": "4ed83c",
+            "children": [
+                "08dd39",
+                "ecef78"
+            ],
+            "settings": {
+                "_cssGlobalClasses": [
+                    "fhimks"
+                ]
+            },
+            "label": "CTA"
+        },
+        {
+            "id": "08dd39",
+            "name": "button",
+            "parent": "c0aca8",
+            "children": [],
+            "settings": {
+                "text": "Call to action",
+                "style": "primary",
+                "_cssGlobalClasses": [
+                    "btn_c",
+                    "small_c"
+                ],
+                "tag": "a"
+            }
+        },
+        {
+            "id": "ecef78",
+            "name": "button",
+            "parent": "c0aca8",
+            "children": [],
+            "settings": {
+                "text": "Secondary action \u2192",
+                "_cssGlobalClasses": [
+                    "link_c"
+                ],
+                "link": {
+                    "type": "external",
+                    "url": "#"
+                }
+            }
+        },
+        {
+            "id": "ad64fc",
+            "name": "block",
+            "parent": "bdb2c7",
+            "children": [
+                "007818",
+                "896d63"
+            ],
+            "settings": {
+                "_cssGlobalClasses": [
+                    "yqlddm",
+                    "list-none_c"
+                ],
+                "tag": "ul",
+                "customTag": "ul"
+            },
+            "label": "Media"
+        },
+        {
+            "id": "007818",
+            "name": "div",
+            "parent": "ad64fc",
+            "children": [
+                "f18808"
+            ],
+            "settings": {
+                "_cssGlobalClasses": [
+                    "jzhiid"
+                ],
+                "tag": "li",
+                "customTag": "li"
+            },
+            "label": "Image wrapper"
+        },
+        {
+            "id": "f18808",
+            "name": "image",
+            "parent": "007818",
+            "children": [],
+            "settings": {
+                "_cssGlobalClasses": [
+                    "keargo"
+                ],
+                "tag": "figure",
+                "image": {
+                    "url": "https:\/\/core.bricksmaven.com\/wp-content\/uploads\/2023\/07\/Placeholder-Image-large.jpg",
+                    "external": true,
+                    "filename": "Placeholder-Image-large.jpg"
+                }
+            }
+        },
+        {
+            "id": "896d63",
+            "name": "div",
+            "parent": "ad64fc",
+            "children": [
+                "a20a16"
+            ],
+            "settings": {
+                "_cssGlobalClasses": [
+                    "jzhiid"
+                ],
+                "tag": "li",
+                "customTag": "li"
+            },
+            "label": "Image wrapper"
+        },
+        {
+            "id": "a20a16",
+            "name": "image",
+            "parent": "896d63",
+            "children": [],
+            "settings": {
+                "_cssGlobalClasses": [
+                    "keargo"
+                ],
+                "tag": "figure",
+                "image": {
+                    "url": "https:\/\/core.bricksmaven.com\/wp-content\/uploads\/2023\/07\/Placeholder-Image-large.jpg",
+                    "external": true,
+                    "filename": "Placeholder-Image-large.jpg"
+                }
+            }
+        }
+    ],
+    "source": "bricksCopiedElements",
+    "sourceUrl": "https:\/\/core.bricksmaven.com",
+    "version": "1.9.7.1",
+    "globalClasses": [
+        {
+            "id": "acoanv",
+            "name": "hero-40",
+            "settings": {
+                "_padding": {
+                    "bottom": "0",
+                    "right": "var(--space-xl)",
+                    "left": "var(--space-xl)",
+                    "top": "var(--space-3xl)"
+                }
+            }
+        },
+        {
+            "id": "ftjejk",
+            "name": "hero-40-container",
+            "settings": {
+                "_display": "flex",
+                "_direction": "column",
+                "_rowGap": "var(--space-m)",
+                "_alignItems": "center"
+            }
+        },
+        {
+            "id": "yavznh",
+            "name": "hero-40__content",
+            "settings": []
+        },
+        {
+            "name": "max-width-60",
+            "id": "max-width-60_c",
+            "settings": []
+        },
+        {
+            "id": "muadbq",
+            "name": "intro",
+            "settings": {
+                "_typography": {
+                    "text-align": "center"
+                },
+                "_direction": "column",
+                "_display": "flex",
+                "_alignItems": "center",
+                "_rowGap": "var(--space-s)",
+                "_width:mobile_landscape": "100%",
+                "_alignSelf": "center"
+            }
+        },
+        {
+            "id": "wnpikx",
+            "name": "intro__heading",
+            "settings": []
+        },
+        {
+            "id": "prgilv",
+            "name": "intro__subheading",
+            "settings": []
+        },
+        {
+            "id": "iohzim",
+            "name": "bm-accent-heading",
+            "settings": {
+                "_typography": {
+                    "font-weight": "700",
+                    "color": {
+                        "raw": "var(--primary)",
+                        "id": "01GXBWJFMN0FTV5W63KFVZYHHA",
+                        "name": "primary"
+                    },
+                    "text-transform": "uppercase",
+                    "letter-spacing": "1"
+                },
+                "_order": "-1"
+            }
+        },
+        {
+            "id": "fhimks",
+            "name": "cta-combo",
+            "settings": {
+                "_display": "flex",
+                "_alignItems": "center",
+                "_columnGap": "var(--space-xs)"
+            }
+        },
+        {
+            "name": "btn",
+            "id": "btn_c",
+            "settings": []
+        },
+        {
+            "name": "small",
+            "id": "small_c",
+            "settings": []
+        },
+        {
+            "name": "link",
+            "id": "link_c",
+            "settings": []
+        },
+        {
+            "id": "yqlddm",
+            "name": "hero-40__media",
+            "settings": {
+                "_display": "grid",
+                "_gridTemplateColumns": "repeat(2, minmax(0, 1fr))",
+                "_gridGap": "var(--space-m)",
+                "_gridTemplateColumns:mobile_portrait": "repeat(1, minmax(0, 1fr))",
+                "_padding": {
+                    "left": "0"
+                }
+            }
+        },
+        {
+            "name": "list-none",
+            "id": "list-none_c",
+            "settings": []
+        },
+        {
+            "id": "jzhiid",
+            "name": "hero-40__image-wrapper",
+            "settings": []
+        },
+        {
+            "id": "keargo",
+            "name": "hero-40__image",
+            "settings": {
+                "_objectFit": "cover",
+                "_cssCustom": ".hero-40__image {\n\taspect-ratio: 1 \/ 1;\n}",
+                "_width": "100%"
+            }
+        }
+    ],
+    "globalElements": []
+}

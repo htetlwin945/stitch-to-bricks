@@ -1,0 +1,299 @@
+{
+    "content": [
+        {
+            "id": "32762c",
+            "name": "section",
+            "parent": 0,
+            "children": [
+                "626b44"
+            ],
+            "settings": {
+                "_cssGlobalClasses": [
+                    "xbjvem"
+                ]
+            },
+            "label": "Call to Action 19"
+        },
+        {
+            "id": "626b44",
+            "name": "container",
+            "parent": "32762c",
+            "children": [
+                "a08e9e",
+                "cb629a"
+            ],
+            "settings": {
+                "_cssGlobalClasses": [
+                    "hsuvwh"
+                ]
+            }
+        },
+        {
+            "id": "a08e9e",
+            "name": "block",
+            "parent": "626b44",
+            "children": [
+                "30873e",
+                "766365",
+                "6a7911",
+                "8d5cfb"
+            ],
+            "settings": {
+                "_cssGlobalClasses": [
+                    "dztfqn"
+                ]
+            },
+            "label": "Box"
+        },
+        {
+            "id": "30873e",
+            "name": "heading",
+            "parent": "a08e9e",
+            "children": [],
+            "settings": {
+                "text": "Start your 30-day free trial",
+                "tag": "h2",
+                "_cssGlobalClasses": [
+                    "gchwom"
+                ]
+            }
+        },
+        {
+            "id": "766365",
+            "name": "text-basic",
+            "parent": "a08e9e",
+            "children": [],
+            "settings": {
+                "text": "For $8 dollars per month billed annually you get access to an ever growing library of premium blocks built with your favorite builder",
+                "tag": "p",
+                "_cssGlobalClasses": [
+                    "ohpdft"
+                ]
+            }
+        },
+        {
+            "id": "6a7911",
+            "name": "text-basic",
+            "parent": "a08e9e",
+            "children": [],
+            "settings": {
+                "text": "Get started",
+                "tag": "span",
+                "_cssGlobalClasses": [
+                    "iohzim"
+                ]
+            },
+            "label": "Accent heading"
+        },
+        {
+            "id": "8d5cfb",
+            "name": "div",
+            "parent": "a08e9e",
+            "children": [
+                "d04940",
+                "3fa288"
+            ],
+            "settings": {
+                "_cssGlobalClasses": [
+                    "fhimks"
+                ]
+            },
+            "label": "CTA"
+        },
+        {
+            "id": "d04940",
+            "name": "button",
+            "parent": "8d5cfb",
+            "children": [],
+            "settings": {
+                "text": "Call to action",
+                "style": "primary",
+                "_cssGlobalClasses": [
+                    "btn_c",
+                    "small_c"
+                ],
+                "tag": "a"
+            }
+        },
+        {
+            "id": "3fa288",
+            "name": "button",
+            "parent": "8d5cfb",
+            "children": [],
+            "settings": {
+                "text": "Try it for free",
+                "style": "primary",
+                "_cssGlobalClasses": [
+                    "btn_c",
+                    "tertiary_c",
+                    "small_c"
+                ],
+                "tag": "a",
+                "outline": true
+            }
+        },
+        {
+            "id": "cb629a",
+            "name": "block",
+            "parent": "626b44",
+            "children": [
+                "ddc45a"
+            ],
+            "settings": {
+                "_cssGlobalClasses": [
+                    "wnineg"
+                ]
+            },
+            "label": "Media"
+        },
+        {
+            "id": "ddc45a",
+            "name": "image",
+            "parent": "cb629a",
+            "children": [],
+            "settings": {
+                "_cssGlobalClasses": [
+                    "yrelor"
+                ],
+                "tag": "figure",
+                "image": {
+                    "url": "https:\/\/core.bricksmaven.com\/wp-content\/uploads\/2023\/07\/Placeholder-Image-large.jpg",
+                    "external": true,
+                    "filename": "Placeholder-Image-large.jpg"
+                }
+            }
+        }
+    ],
+    "source": "bricksCopiedElements",
+    "sourceUrl": "https:\/\/core.bricksmaven.com",
+    "version": "1.9.7.1",
+    "globalClasses": [
+        {
+            "id": "xbjvem",
+            "name": "cta-19",
+            "settings": {
+                "_height": "100%",
+                "_justifyContent": "center",
+                "_position": "relative",
+                "_cssCustom": "\/* Add background shape to the right *\/\n.cta-19::before {\n  content:\"\";\n  background-color: var(--primary-10);\n  position: absolute;\n  width: 40vw;\n  height:100%;\n  top: 0;\n  right: 0;\n}\n\n\/* Add background shape to the bottom on mobile *\/\n@media (max-width:768px) {\n\t.cta-19::before {\n  width: 100vw;\n  height:40%;  \n  top: auto;\n  bottom: 0;  \n\n}\n\n}",
+                "_overflow": "hidden",
+                "_padding": {
+                    "top": "var(--space-3xl)",
+                    "right": "var(--space-xl)",
+                    "bottom": "var(--space-3xl)",
+                    "left": "var(--space-xl)"
+                }
+            }
+        },
+        {
+            "id": "hsuvwh",
+            "name": "cta-19-container",
+            "settings": {
+                "_gridTemplateColumns": "repeat(2, minmax(0, 1fr))",
+                "_display": "grid",
+                "_alignItemsGrid": "center",
+                "_position": "relative",
+                "_gridTemplateColumns:mobile_landscape": "repeat(1, minmax(0, 1fr))"
+            }
+        },
+        {
+            "id": "dztfqn",
+            "name": "cta-19__box",
+            "settings": {
+                "_display": "flex",
+                "_direction": "column",
+                "_alignItems": "flex-start",
+                "_rowGap": "var(--space-s)",
+                "_padding": {
+                    "right": "var(--space-2xl)",
+                    "top": "var(--space-xl)",
+                    "bottom": "var(--space-xl)"
+                },
+                "_typography": {
+                    "text-align": "left"
+                },
+                "_typography:mobile_landscape": {
+                    "text-align": "center"
+                },
+                "_alignItems:mobile_landscape": "center",
+                "_padding:mobile_landscape": {
+                    "left": "var(--space-xl)"
+                },
+                "_background:mobile_landscape": {
+                    "color": {
+                        "raw": "var(--white)"
+                    }
+                }
+            }
+        },
+        {
+            "id": "gchwom",
+            "name": "cta-19__heading",
+            "settings": []
+        },
+        {
+            "id": "ohpdft",
+            "name": "cta-19__desc",
+            "settings": []
+        },
+        {
+            "id": "iohzim",
+            "name": "bm-accent-heading",
+            "settings": {
+                "_typography": {
+                    "font-weight": "700",
+                    "color": {
+                        "raw": "var(--primary)",
+                        "id": "01GXBWJFMN0FTV5W63KFVZYHHA",
+                        "name": "primary"
+                    },
+                    "text-transform": "uppercase",
+                    "letter-spacing": "1"
+                },
+                "_order": "-1"
+            }
+        },
+        {
+            "id": "fhimks",
+            "name": "cta-combo",
+            "settings": {
+                "_display": "flex",
+                "_alignItems": "center",
+                "_columnGap": "var(--space-xs)"
+            }
+        },
+        {
+            "name": "btn",
+            "id": "btn_c",
+            "settings": []
+        },
+        {
+            "name": "small",
+            "id": "small_c",
+            "settings": []
+        },
+        {
+            "name": "tertiary",
+            "id": "tertiary_c",
+            "settings": []
+        },
+        {
+            "id": "wnineg",
+            "name": "cta-19__media",
+            "settings": []
+        },
+        {
+            "id": "yrelor",
+            "name": "cta-19__image",
+            "settings": {
+                "_objectFit": "cover",
+                "_width": "50vw",
+                "_height": "100%",
+                "_widthMax": "50vw",
+                "_width:mobile_landscape": "100%",
+                "_widthMax:mobile_landscape": "100%"
+            }
+        }
+    ],
+    "globalElements": []
+}

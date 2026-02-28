@@ -1,0 +1,39 @@
+/* 
+ * Styles for the custom Stitch to Bricks toolbar button 
+ */
+
+ #stb-fetch-btn {
+	margin-right: 10px;
+	background-color: #6366f1; /* Indigo generic AI color */
+	color: #ffffff;
+	border: none;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	padding: 0 16px;
+	border-radius: 4px;
+	font-weight: 500;
+	transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+#stb-fetch-btn:hover {
+	background-color: #4f46e5;
+}
+
+#stb-fetch-btn:active {
+	transform: scale(0.97);
+}
+
+#stb-fetch-btn .fa-spin {
+	animation: fa-spin 2s infinite linear;
+}
+
+@keyframes fa-spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(359deg);
+	}
+}
