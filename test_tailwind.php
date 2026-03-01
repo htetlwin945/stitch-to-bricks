@@ -17,7 +17,7 @@ if (!function_exists('site_url')) {
 
 $converter = new STB_Converter();
 
-$html = file_get_contents('f:\bricks-ai\payload-test2.html');
-$result = $converter->convert($html, 'Test Output');
+$html_payload = file_get_contents(__DIR__ . '/payload-modern-boilerplate.html');
+$result = $converter->convert($html_payload, 'Test Output');
 file_put_contents('f:\bricks-ai\test-output.json', json_encode($result, JSON_PRETTY_PRINT));
 echo "Output written to test-output.json\n";

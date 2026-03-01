@@ -42,8 +42,9 @@ class STB_Converter
 
         libxml_use_internal_errors(true);
         $doc = new DOMDocument('1.0', 'UTF-8');
+        $html = mb_encode_numericentity($html, [0x80, 0x10FFFF, 0, ~0], 'UTF-8');
         $doc->loadHTML(
-            mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'),
+            $html,
             LIBXML_NOWARNING | LIBXML_NOERROR
         );
         libxml_clear_errors();
@@ -503,38 +504,43 @@ class STB_Converter
      */
     private function build_generic(array $c, string $title, DOMNode $rootNode): void
     {
-        // 1. Unwrap the outer Stitch preview wrapper if it exists.
-        // Stitch wraps the whole page in `<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">`.
-        // This bloats the canvas. We want the actual <section>, <header>, <main> elements.
-        $nodesToTraverse = [$rootNode];
+        // 1. Unwrap the outer Stitch preview wrapper(s) if they exist.
+        // Stitch wraps the whole page in nested divs like `min-h-screen` and `layout-container`.
+        $currentNode = $rootNode;
+        $nodesToTraverse = [];
 
-        if ($rootNode->nodeName === 'body') {
+        while (true) {
             $children = [];
-            foreach ($rootNode->childNodes as $child) {
+            foreach ($currentNode->childNodes as $child) {
                 if ($child->nodeType === XML_ELEMENT_NODE) {
                     $children[] = $child;
                 }
             }
-            // If body has exactly one div child, and it looks like a full-screen wrapper, unwrap it.
+
+            // If the current node has exactly one `div` child, check if it's a preview wrapper.
+            // If it's the `<body>` tag, we always unwrap its first single child if it's a wrapper.
             if (count($children) === 1 && $children[0]->nodeName === 'div') {
                 $classStr = $children[0]->getAttribute('class');
-                if (str_contains($classStr, 'min-h-screen') || str_contains($classStr, 'flex-col')) {
-                    $nodesToTraverse = [];
-                    foreach ($children[0]->childNodes as $grandChild) {
-                        $nodesToTraverse[] = $grandChild;
-                    }
-                }
-            } else {
-                $nodesToTraverse = [];
-                foreach ($rootNode->childNodes as $child) {
-                    $nodesToTraverse[] = $child;
+                if (
+                    $currentNode->nodeName === 'body'
+                    || str_contains($classStr, 'min-h-screen')
+                    || str_contains($classStr, 'layout-container')
+                ) {
+                    $currentNode = $children[0];
+                    continue;
                 }
             }
+
+            // We have reached the true layout elements (header, main, or multiple blocks)
+            foreach ($currentNode->childNodes as $child) {
+                $nodesToTraverse[] = $child;
+            }
+            break;
         }
 
         // 2. Traverse and build
         foreach ($nodesToTraverse as $child) {
-            $this->traverse_node($child, 0);
+            $this->traverse_node($child, 0, '');
         }
     }
 
@@ -543,8 +549,26 @@ class STB_Converter
      * Recursively walks a DOMNode and maps it to a Bricks element ID.
      * Extracts Tailwind classes directly from the element.
      */
-    private function traverse_node(DOMNode $node, string|int $parentId): ?string
+    private function traverse_node(DOMNode $node, string|int $parentId, string $parentBricksType = ''): ?string
     {
+        if ($node->nodeType === XML_TEXT_NODE) {
+            $text = trim($node->textContent);
+            if ($text === '') {
+                return null;
+            }
+            $elementId = $this->id();
+            $label = substr($text, 0, 15) . (strlen($text) > 15 ? '...' : '');
+            $this->add_element(
+                $elementId,
+                'text-basic',
+                $parentId,
+                [],
+                ['text' => $text],
+                $label
+            );
+            return $elementId;
+        }
+
         if ($node->nodeType !== XML_ELEMENT_NODE) {
             return null;
         }
@@ -580,13 +604,25 @@ class STB_Converter
             if ($settings['text'] === '')
                 return null;
         } elseif ($tag === 'button') {
-            $bricksType = 'button';
-            $settings['text'] = trim($node->textContent);
+            $bricksType = 'div';
             $settings['tag'] = 'button';
         } elseif ($tag === 'a') {
-            $bricksType = 'text-link';
-            $settings['text'] = trim($node->textContent);
-            $settings['link'] = ['type' => 'external', 'url' => $node->getAttribute('href') ?: '#'];
+            $hasBlockChildren = false;
+            foreach ($node->childNodes as $child) {
+                if ($child->nodeType === XML_ELEMENT_NODE && !in_array(strtolower($child->nodeName), ['span', 'em', 'strong'])) {
+                    $hasBlockChildren = true;
+                    break;
+                }
+            }
+            if ($hasBlockChildren) {
+                $bricksType = 'div';
+                $settings['tag'] = 'a';
+                $settings['link'] = ['type' => 'external', 'url' => $node->getAttribute('href') ?: '#'];
+            } else {
+                $bricksType = 'text-link';
+                $settings['text'] = trim($node->textContent);
+                $settings['link'] = ['type' => 'external', 'url' => $node->getAttribute('href') ?: '#'];
+            }
         } elseif ($tag === 'img') {
             $bricksType = 'image';
             $settings['tag'] = 'figure';
@@ -600,35 +636,46 @@ class STB_Converter
         } elseif ($tag === 'li') {
             $bricksType = 'div';
             $settings['tag'] = 'li';
-        } elseif (in_array($tag, ['header', 'footer', 'main', 'section'])) {
+        } elseif (in_array($tag, ['header', 'footer', 'main', 'section', 'article', 'aside'])) {
             $bricksType = 'section';
-            $settings['tag'] = $tag;
+            if ($tag !== 'section') {
+                $settings['tag'] = 'custom';
+                $settings['customTag'] = $tag;
+            }
         } else {
-            // Infer container/block/div from Tailwind classes
-            $classString = $node->getAttribute('class') ?: '';
+            // Structural mapping for generic layouts
+            $bricksType = 'div';
 
-            if (preg_match('/\bmax-w-[a-zA-Z0-9\-]+\b/', $classString) && str_contains($classString, 'mx-auto')) {
-                $bricksType = 'container';
-            } elseif (str_contains($classString, 'flex-col') || str_contains($classString, 'grid')) {
-                $bricksType = 'block';
-            } else {
-                $bricksType = 'div';
+            if ($tag === 'div') {
+                if ($parentId === 0) {
+                    $bricksType = 'section';
+                } elseif ($parentBricksType === 'section') {
+                    $bricksType = 'container';
+                } elseif ($parentBricksType === 'container') {
+                    $bricksType = 'block';
+                }
             }
 
-            // Retain semantic HTML tags for div/block/container
-            if (in_array($tag, ['nav', 'article', 'aside', 'form', 'figure'])) {
+            // Retain semantic HTML tags for div
+            if (in_array($tag, ['nav', 'form', 'figure'])) {
                 $settings['tag'] = $tag;
             }
         }
 
-        // 2. Extract Tailwind Classes
+        // 2. Extract Tailwind Classes & Label
         $classAttr = $node->getAttribute('class') ?: '';
+        $label = '';
         if (!empty($classAttr)) {
             $classes = preg_split('/\s+/', trim($classAttr));
             $tailwindClassIds = [];
             foreach ($classes as $cls) {
                 if (empty($cls))
                     continue;
+
+                if ($label === '') {
+                    $label = '.' . $cls;
+                }
+
                 // Register the Tailwind class exactly as named so Bricks Maps it
                 // We use the class name as its ID to prevent duplication
                 $this->globalClasses[$cls] = [
@@ -643,17 +690,21 @@ class STB_Converter
             }
         }
 
+        if ($label === '') {
+            $label = $tag;
+        }
+
         // 3. Process Children for containers
-        if (in_array($bricksType, ['div', 'block', 'container', 'section'])) {
+        if (in_array($bricksType, ['div', 'section', 'container', 'block'])) {
             foreach ($node->childNodes as $child) {
-                $childId = $this->traverse_node($child, $elementId);
+                $childId = $this->traverse_node($child, $elementId, $bricksType);
                 if ($childId) {
                     $childrenIds[] = $childId;
                 }
             }
         }
 
-        $this->add_element($elementId, $bricksType, $parentId, $childrenIds, $settings);
+        $this->add_element($elementId, $bricksType, $parentId, $childrenIds, $settings, $label);
         return $elementId;
     }
 

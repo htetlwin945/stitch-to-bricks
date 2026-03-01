@@ -83,6 +83,21 @@ final class Stitch_To_Bricks
 		new STB_Settings();
 		new STB_Builder_UI();
 		new STB_Ajax_Handler();
+
+		// Enqueue Tailwind CDN onto the frontend and Builder iframe 
+		// so that imported Stitch components render perfectly out of the box.
+		add_action('wp_head', [$this, 'inject_tailwind_cdn'], 5);
+	}
+
+	/**
+	 * Injects the Tailwind Play CDN into the head of the page.
+	 * This ensures that Bricks Builder and the frontend immediately 
+	 * render the utility classes without needing a local 3.5MB stylesheet.
+	 */
+	public function inject_tailwind_cdn()
+	{
+		echo '<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>';
+		echo '<script>tailwind.config = { darkMode: "class" };</script>';
 	}
 }
 
