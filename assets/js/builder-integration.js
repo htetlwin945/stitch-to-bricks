@@ -14,6 +14,7 @@ console.log('[STB] Builder integration loaded.');
 const STB = {
     panelOpen: false,
     currentProject: null,
+    nativeImportTest: null,
 };
 
 // ─── Inject Toolbar Button ────────────────────────────────────────────────────
@@ -198,6 +199,107 @@ function createPanel() {
         }
         .stb-screen-import-btn:hover { opacity: 0.85; }
         .stb-screen-import-btn:disabled { opacity: 0.5; cursor: wait; }
+        .stb-screen-actions {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 0 10px 10px;
+        }
+        .stb-screen-actions .stb-screen-import-btn {
+            width: 100%; margin: 0;
+        }
+        .stb-screen-native-btn {
+            background: #0f172a; border: 1px solid #334155; color: #cbd5e1;
+        }
+        .stb-screen-native-btn:hover { border-color: #6366f1; color: #fff; }
+        .stb-screen-primary-btn {
+            background: linear-gradient(135deg,#6366f1,#8b5cf6);
+        }
+
+        #stb-native-import-modal {
+            position: fixed; inset: 0; background: rgba(2,6,23,0.7); z-index: 1000000;
+            display: flex; align-items: center; justify-content: center; padding: 24px;
+            backdrop-filter: blur(10px);
+        }
+        #stb-native-import-modal[hidden] {
+            display: none;
+        }
+        .stb-native-dialog {
+            width: min(860px, 100%); max-height: min(90vh, 820px); overflow: hidden;
+            background: #0f172a; border: 1px solid #334155; border-radius: 18px;
+            box-shadow: 0 24px 80px rgba(0,0,0,0.45); display: flex; flex-direction: column;
+        }
+        .stb-native-header {
+            display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+            padding: 20px 22px; border-bottom: 1px solid #1e293b;
+        }
+        .stb-native-header h3 {
+            margin: 0; font-size: 16px; color: #f8fafc;
+        }
+        .stb-native-header p {
+            margin: 6px 0 0; font-size: 12px; color: #94a3b8; line-height: 1.5;
+        }
+        .stb-native-close {
+            border: none; background: #1e293b; color: #e2e8f0; width: 30px; height: 30px;
+            border-radius: 999px; cursor: pointer; flex-shrink: 0;
+        }
+        .stb-native-close:hover { background: #334155; }
+        .stb-native-body {
+            padding: 20px 22px 22px; overflow: auto; display: grid; gap: 18px;
+        }
+        .stb-native-summary {
+            display: flex; flex-wrap: wrap; gap: 8px;
+        }
+        .stb-native-badge {
+            display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px;
+            background: #111827; border: 1px solid #1f2937; border-radius: 999px;
+            color: #cbd5e1; font-size: 11px; font-weight: 600;
+        }
+        .stb-native-badge strong {
+            color: #fff;
+        }
+        .stb-native-grid {
+            display: grid; gap: 18px; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+        }
+        .stb-native-panel {
+            background: #111827; border: 1px solid #1f2937; border-radius: 14px; padding: 16px;
+        }
+        .stb-native-panel h4 {
+            margin: 0 0 10px; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #818cf8;
+        }
+        .stb-native-variant-buttons {
+            display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;
+        }
+        .stb-native-variant-buttons button,
+        .stb-native-action-row button {
+            border: 1px solid #334155; background: #0f172a; color: #cbd5e1; border-radius: 8px;
+            padding: 8px 10px; cursor: pointer; font-size: 12px; font-weight: 600;
+        }
+        .stb-native-variant-buttons button.active {
+            border-color: #6366f1; color: #fff; background: rgba(99,102,241,0.16);
+        }
+        .stb-native-action-row {
+            display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px;
+        }
+        .stb-native-action-row .primary {
+            border-color: #6366f1; background: linear-gradient(135deg,#6366f1,#8b5cf6); color: #fff;
+        }
+        .stb-native-preview {
+            width: 100%; min-height: 260px; resize: vertical; border-radius: 10px; border: 1px solid #334155;
+            background: #020617; color: #e2e8f0; padding: 12px; font-size: 12px; line-height: 1.5;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        }
+        .stb-native-preview-meta {
+            margin-top: 8px; font-size: 11px; color: #64748b;
+        }
+        .stb-native-steps {
+            margin: 0; padding-left: 18px; display: grid; gap: 8px; color: #cbd5e1; font-size: 13px; line-height: 1.5;
+        }
+        .stb-native-note {
+            margin-top: 12px; font-size: 12px; color: #94a3b8; line-height: 1.5;
+        }
+        @media (max-width: 860px) {
+            .stb-native-grid {
+                grid-template-columns: 1fr;
+            }
+        }
 
         .stb-section-title {
             font-size: 11px; font-weight: 700; color: #6366f1; letter-spacing: 1px;
@@ -393,14 +495,24 @@ async function loadScreens(project) {
                     <div class="stb-screen-title">${escHtml(screen.title || 'Untitled Screen')}</div>
                     <div class="stb-screen-meta">${w}×${h}</div>
                 </div>
-                <button class="stb-screen-import-btn" data-screen-id="${screen.id}" data-project-id="${project.id}">
-                    Import to Canvas
-                </button>
+                <div class="stb-screen-actions">
+                    <button class="stb-screen-import-btn stb-screen-native-btn" data-screen-action="native" data-screen-id="${screen.id}" data-project-id="${project.id}">
+                        Inspect Payload
+                    </button>
+                    <button class="stb-screen-import-btn stb-screen-primary-btn" data-screen-action="import" data-screen-id="${screen.id}" data-project-id="${project.id}">
+                        Import to Bricks
+                    </button>
+                </div>
             `;
 
-            card.querySelector('.stb-screen-import-btn').addEventListener('click', (e) => {
+            card.querySelector('[data-screen-action="import"]').addEventListener('click', (e) => {
                 e.stopPropagation();
-                importScreen(project.id, screen.id, screen.title, e.currentTarget);
+                startNativeImport(project.id, screen.id, screen.title, e.currentTarget);
+            });
+
+            card.querySelector('[data-screen-action="native"]').addEventListener('click', (e) => {
+                e.stopPropagation();
+                inspectNativeImport(project.id, screen.id, screen.title, e.currentTarget);
             });
 
             grid.appendChild(card);
@@ -412,112 +524,330 @@ async function loadScreens(project) {
     }
 }
 
-// ─── Import Screen into Bricks Canvas ────────────────────────────────────────
-async function importScreen(projectId, screenId, screenTitle, btn) {
+// ─── Phase 0: Native Import Validation ───────────────────────────────────────
+async function inspectNativeImport(projectId, screenId, screenTitle, btn) {
     const originalText = btn.textContent;
-
-    const setStatus = (msg) => { btn.textContent = msg; };
-
-    setStatus('⏳ Fetching…');
+    btn.textContent = '⏳ Preparing…';
     btn.disabled = true;
 
     try {
-        // ── Step 1: Fetch HTML + parse to Bricks elements ─────────────────
-        console.group(`[STB] Import: "${screenTitle}"`);
-        console.log('[STB] Step 1: Fetching screen from Stitch + parsing HTML…');
-        console.log('[STB] project:', projectId, '| screen:', screenId);
+        console.group(`[STB] Native import test: "${screenTitle}"`);
+        console.log('[STB] Fetching raw Stitch payload for Bricks native import validation…');
 
-        const importData = await stbAjax('stb_import_screen', {
+        const payload = await stbAjax('stb_fetch_screen_payload', {
             project_id: projectId,
             screen_id: screenId,
         });
 
-        const elements = importData?.elements;
-        const clipboard = importData?.clipboard;
-        const globalClasses = importData?.globalClasses;
-        const html = importData?.html;
+        const variants = buildNativeImportVariants(payload?.html || '');
+        openNativeImportDialog(screenTitle, payload, variants, { mode: 'inspect' });
 
-        // ── Structured logging ────────────────────────────────────────────
-        console.log('[STB] Raw HTML length:', html?.length ?? 0, 'chars');
-        console.log('[STB] Converter produced', elements?.length ?? 0, 'elements,', globalClasses?.length ?? 0, 'global classes');
-
-        if (elements?.length > 0) {
-            console.log('[STB] Root elements:', elements.filter(e => e.parent === 0).map(e => `${e.id}(${e.name})`).join(', '));
-            console.log('[STB] All elements:', elements.map(e => `${e.id}(${e.name})`).join(', '));
-        } else {
-            console.warn('[STB] ⚠ No elements from converter. Check PHP debug log.');
-            console.log('[STB] Raw HTML (first 500 chars):', html?.substring(0, 500));
-        }
-
-        if (globalClasses?.length > 0) {
-            console.log('[STB] Global classes:', globalClasses.map(c => `${c.name}(${c.id})`).join(', '));
-        }
-
-        if (!elements || elements.length === 0) {
-            throw new Error('Converter returned 0 elements. Check STB_Converter PHP log.');
-        }
-
-        // ── Step 2: Save to Bricks post meta (content + globalClasses) ────
-        setStatus('⏳ Saving…');
-        console.log('[STB] Step 2: Saving', elements.length, 'elements + ', globalClasses?.length ?? 0, 'global classes to post', stbData.postId, '…');
-
-        const saveData = await stbAjax('stb_save_to_page', {
-            post_id: stbData.postId,
-            elements: JSON.stringify(elements),
-            globalClasses: JSON.stringify(globalClasses || []),
+        console.log('[STB] Native import variants:', {
+            fullHtmlLength: variants.fullHtml.length,
+            bodyHtmlLength: variants.bodyHtml.length,
+            inlineCssLength: variants.inlineCss.length,
+            summary: variants.summary,
         });
-
-        console.log('[STB] Save result:', saveData);
         console.groupEnd();
-
-        // ── Step 3: Reload builder to see elements ────────────────────────
-        setStatus('✅ Saved! Reloading…');
-        showToast(`"${screenTitle}" imported! (${elements.length} elements) Reloading…`);
-
-        // Short delay so user sees the success toast, then reload
-        setTimeout(() => {
-            window.location.reload();
-        }, 1800);
-
     } catch (err) {
-        console.error('[STB] ❌ Import failed:', err);
+        console.error('[STB] Native import test failed:', err);
         console.groupEnd();
-
-        setStatus('❌ Failed');
-        showToast('Import failed: ' + err.message, 'error');
-
-        setTimeout(() => {
-            btn.textContent = originalText;
-            btn.disabled = false;
-        }, 3000);
+        showToast('Native import test failed: ' + err.message, 'error');
+    } finally {
+        btn.textContent = originalText;
+        btn.disabled = false;
     }
 }
 
-// ─── Inject Bricks Elements into Canvas ──────────────────────────────────────
-function injectIntoBricks(elements, label) {
+async function startNativeImport(projectId, screenId, screenTitle, btn) {
+    const originalText = btn.textContent;
+    btn.textContent = '⏳ Preparing…';
+    btn.disabled = true;
+
     try {
-        // Bricks uses a global Vue store — try to access it
-        if (window.bricksData || window.$bricks) {
-            // Try the Bricks Builder JS API to add elements
-            const bricksApp = document.querySelector('#bricks-builder')?.__vue_app__;
-            if (bricksApp) {
-                // Get the Bricks store
-                const store = bricksApp.config.globalProperties.$store;
-                if (store && store.dispatch) {
-                    store.dispatch('builder/addElements', { elements, source: 'stitch' });
-                    showToast(`"${label}" added to canvas!`);
-                    return;
-                }
-            }
-        }
-        // Fallback: copy JSON to clipboard so user can paste
-        navigator.clipboard.writeText(JSON.stringify(elements, null, 2)).then(() => {
-            showToast(`"${label}" Bricks JSON copied to clipboard! Use Bricks > Import to paste.`);
+        console.group(`[STB] Native import handoff: "${screenTitle}"`);
+        console.log('[STB] Fetching raw Stitch payload for Bricks handoff…');
+
+        const payload = await stbAjax('stb_fetch_screen_payload', {
+            project_id: projectId,
+            screen_id: screenId,
         });
+
+        const variants = buildNativeImportVariants(payload?.html || '');
+        openNativeImportDialog(screenTitle, payload, variants, {
+            mode: 'handoff',
+            selectedVariant: variants.bodyHtml ? 'bodyHtml' : 'fullHtml',
+        });
+
+        await copyNativeVariant(STB.nativeImportTest?.selectedVariant || 'bodyHtml');
+        console.groupEnd();
     } catch (err) {
-        console.error('[STB] injectIntoBricks error:', err);
-        showToast('Could not inject directly — JSON logged to console.', 'warning');
-        console.log('[STB] Bricks elements JSON:', JSON.stringify(elements, null, 2));
+        console.error('[STB] Native import handoff failed:', err);
+        console.groupEnd();
+        showToast('Import to Bricks failed: ' + err.message, 'error');
+    } finally {
+        btn.textContent = originalText;
+        btn.disabled = false;
+    }
+}
+
+function buildNativeImportVariants(html) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html || '', 'text/html');
+    const sanitizedBody = sanitizeBodyFragment(doc.body);
+    const rawInlineCss = Array.from(doc.querySelectorAll('style'))
+        .map((style) => style.textContent?.trim() || '')
+        .filter(Boolean)
+        .join('\n\n');
+    const sanitizedInlineCss = sanitizeInlineCss(rawInlineCss);
+    const externalStylesheets = Array.from(doc.querySelectorAll('link[rel="stylesheet"]')).map((link) => link.href).filter(Boolean);
+    const scripts = Array.from(doc.querySelectorAll('script[src], script:not([src])'));
+    const rootVariableCount = (sanitizedInlineCss.css.match(/--[a-z0-9-_]+\s*:/gi) || []).length;
+
+    return {
+        fullHtml: html || '',
+        bodyHtml: sanitizedBody.html,
+        inlineCss: sanitizedInlineCss.css,
+        summary: {
+            hasDoctype: /^\s*<!doctype/i.test(html || ''),
+            styleTagCount: doc.querySelectorAll('style').length,
+            externalStylesheetCount: externalStylesheets.length,
+            externalStylesheets,
+            scriptCount: scripts.length,
+            strippedBodyScriptCount: sanitizedBody.removedScripts,
+            strippedBodyStyleCount: sanitizedBody.removedStyles,
+            strippedBodyStylesheetCount: sanitizedBody.removedStylesheets,
+            strippedBodyNoscriptCount: sanitizedBody.removedNoscript,
+            strippedCssImportCount: sanitizedInlineCss.removedImports,
+            rootVariableCount,
+            bodyNodeCount: doc.body?.children?.length || 0,
+        },
+    };
+}
+
+function sanitizeBodyFragment(body) {
+    if (!body) {
+        return {
+            html: '',
+            removedScripts: 0,
+            removedStyles: 0,
+            removedStylesheets: 0,
+            removedNoscript: 0,
+        };
+    }
+
+    const clone = body.cloneNode(true);
+    const removedScripts = clone.querySelectorAll('script').length;
+    const removedStyles = clone.querySelectorAll('style').length;
+    const removedStylesheets = clone.querySelectorAll('link[rel="stylesheet"]').length;
+    const removedNoscript = clone.querySelectorAll('noscript').length;
+
+    clone.querySelectorAll('script, style, link[rel="stylesheet"], noscript').forEach((node) => node.remove());
+
+    return {
+        html: clone.innerHTML.trim(),
+        removedScripts,
+        removedStyles,
+        removedStylesheets,
+        removedNoscript,
+    };
+}
+
+function sanitizeInlineCss(css) {
+    const imports = css.match(/^\s*@import[^;]+;?/gim) || [];
+    return {
+        css: css.replace(/^\s*@import[^;]+;?\s*/gim, '').trim(),
+        removedImports: imports.length,
+    };
+}
+
+function openNativeImportDialog(screenTitle, payload, variants, options = {}) {
+    closeNativeImportTester();
+
+    const mode = options.mode || 'inspect';
+    const selectedVariant = options.selectedVariant || (variants.bodyHtml ? 'bodyHtml' : 'fullHtml');
+
+    STB.nativeImportTest = {
+        screenTitle,
+        payload,
+        variants,
+        selectedVariant,
+        mode,
+    };
+
+    const title = mode === 'handoff' ? 'Import to Bricks' : 'Phase 0 Native Import Validation';
+    const subtitle = mode === 'handoff'
+        ? `${escHtml(screenTitle || 'Untitled Screen')} · Sanitized Body HTML is preselected because it performed better in Phase 0 validation. Paste it into Bricks now, and use Inline CSS only if the imported result needs a second styling pass.`
+        : `${escHtml(screenTitle || 'Untitled Screen')} · Use these variants to test Bricks' native HTML & CSS importer before we remove the legacy converter flow.`;
+    const stepOne = mode === 'handoff'
+        ? 'The preferred payload has been copied to your clipboard. It is a sanitized Body HTML fragment with scripts, style tags, stylesheet links, and noscript tags removed from the body content.'
+        : 'Confirm <code>Bricks &gt; Settings &gt; Builder &gt; HTML &amp; CSS to Bricks</code> is enabled.';
+    const stepTwo = mode === 'handoff'
+        ? 'If the imported result is missing styles, copy <strong>Inline CSS</strong> next and paste that into Bricks as a second step. External stylesheet links are never auto-copied.'
+        : 'Start with <strong>Body HTML</strong>. If Bricks misses structure, try <strong>Full HTML</strong>. Use <strong>Inline CSS</strong> only if Bricks needs a second CSS paste step.';
+    const stepThree = mode === 'handoff'
+        ? 'If Bricks creates Code elements for scripts or external resources, note that so we can finalize sanitization rules.'
+        : 'Paste into the Bricks builder and record whether Bricks creates native elements, classes, and variables.';
+    const stepFour = mode === 'handoff'
+        ? 'If this screen needs a different payload than Body HTML, reopen the inspector and compare variants before we lock the final import contract.'
+        : 'Note any Code elements created for scripts or external resources so we can decide how much sanitization the plugin should do.';
+
+    const modal = document.createElement('div');
+    modal.id = 'stb-native-import-modal';
+    modal.innerHTML = `
+        <div class="stb-native-dialog" role="dialog" aria-modal="true" aria-labelledby="stb-native-import-title">
+            <div class="stb-native-header">
+                <div>
+                    <h3 id="stb-native-import-title">${title}</h3>
+                    <p>${subtitle}</p>
+                </div>
+                <button class="stb-native-close" type="button" aria-label="Close">✕</button>
+            </div>
+            <div class="stb-native-body">
+                <div class="stb-native-summary" id="stb-native-summary"></div>
+                <div class="stb-native-grid">
+                    <div class="stb-native-panel">
+                        <h4>Payload Variants</h4>
+                        <div class="stb-native-variant-buttons" id="stb-native-variant-buttons"></div>
+                        <textarea class="stb-native-preview" id="stb-native-preview" readonly spellcheck="false"></textarea>
+                        <div class="stb-native-preview-meta" id="stb-native-preview-meta"></div>
+                        <div class="stb-native-action-row">
+                            <button type="button" class="primary" id="stb-copy-selected">Copy Selected Variant</button>
+                            <button type="button" id="stb-copy-full-html">Copy Full HTML</button>
+                            <button type="button" id="stb-copy-inline-css">Copy Inline CSS</button>
+                        </div>
+                    </div>
+                    <div class="stb-native-panel">
+                        <h4>Manual Test Steps</h4>
+                        <ol class="stb-native-steps">
+                            <li>${stepOne}</li>
+                            <li>${stepTwo}</li>
+                            <li>${stepThree}</li>
+                            <li>${stepFour}</li>
+                        </ol>
+                        <div class="stb-native-note" id="stb-native-note"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            closeNativeImportTester();
+        }
+    });
+
+    document.body.appendChild(modal);
+    modal.querySelector('.stb-native-close')?.addEventListener('click', closeNativeImportTester);
+    document.addEventListener('keydown', handleNativeImportEscape);
+
+    renderNativeImportDialog();
+}
+
+function closeNativeImportTester() {
+    const modal = document.getElementById('stb-native-import-modal');
+    if (modal) modal.remove();
+    document.removeEventListener('keydown', handleNativeImportEscape);
+    STB.nativeImportTest = null;
+}
+
+function handleNativeImportEscape(event) {
+    if (event.key === 'Escape') {
+        closeNativeImportTester();
+    }
+}
+
+function renderNativeImportDialog() {
+    const state = STB.nativeImportTest;
+    if (!state) return;
+
+    const variants = [
+        { key: 'bodyHtml', label: 'Body HTML', value: state.variants.bodyHtml },
+        { key: 'fullHtml', label: 'Full HTML', value: state.variants.fullHtml },
+        { key: 'inlineCss', label: 'Inline CSS', value: state.variants.inlineCss },
+    ].filter((variant) => variant.value);
+
+    if (!variants.some((variant) => variant.key === state.selectedVariant)) {
+        state.selectedVariant = variants[0]?.key || 'fullHtml';
+    }
+
+    const buttons = document.getElementById('stb-native-variant-buttons');
+    const preview = document.getElementById('stb-native-preview');
+    const previewMeta = document.getElementById('stb-native-preview-meta');
+    const summary = document.getElementById('stb-native-summary');
+    const note = document.getElementById('stb-native-note');
+    if (!buttons || !preview || !previewMeta || !summary || !note) return;
+
+    buttons.innerHTML = variants.map((variant) => `
+        <button type="button" data-variant-key="${variant.key}" class="${variant.key === state.selectedVariant ? 'active' : ''}">
+            ${variant.label}
+        </button>
+    `).join('');
+
+    buttons.querySelectorAll('[data-variant-key]').forEach((button) => {
+        button.addEventListener('click', () => {
+            state.selectedVariant = button.getAttribute('data-variant-key');
+            renderNativeImportDialog();
+        });
+    });
+
+    const selectedText = state.variants[state.selectedVariant] || '';
+    const selectedVariantLabel = variants.find((variant) => variant.key === state.selectedVariant)?.label || state.selectedVariant;
+    preview.value = selectedText;
+    previewMeta.textContent = `${selectedText.length.toLocaleString()} chars`;
+
+    summary.innerHTML = [
+        badgeHtml('Variant', selectedVariantLabel),
+        badgeHtml('Style tags', state.variants.summary.styleTagCount),
+        badgeHtml('External CSS', state.variants.summary.externalStylesheetCount),
+        badgeHtml('Scripts', state.variants.summary.scriptCount),
+        badgeHtml('Body script strip', state.variants.summary.strippedBodyScriptCount),
+        badgeHtml(':root vars', state.variants.summary.rootVariableCount),
+        badgeHtml('Body nodes', state.variants.summary.bodyNodeCount),
+    ].join('');
+
+    note.innerHTML = [
+        state.mode === 'handoff' ? 'Sanitized Body HTML is the default handoff payload based on manual validation.' : 'Use this dialog to compare payload variants before finalizing the handoff contract.',
+        state.variants.summary.hasDoctype ? 'The Stitch export includes a full HTML document.' : 'The Stitch export does not include a full HTML document.',
+        state.variants.summary.externalStylesheetCount > 0 ? `Bricks may convert external stylesheets into Code elements for review. Detected: ${state.variants.summary.externalStylesheetCount}.` : 'No external stylesheet links detected.',
+        state.variants.summary.scriptCount > 0 ? `Detected ${state.variants.summary.scriptCount} script tag(s); the default body payload does not auto-copy them.` : 'No script tags detected in this payload.',
+        state.variants.summary.strippedCssImportCount > 0 ? `Removed ${state.variants.summary.strippedCssImportCount} CSS @import rule(s) from the inline CSS fallback.` : 'No CSS @import rules were found in inline styles.',
+    ].join(' ');
+
+    const copySelected = document.getElementById('stb-copy-selected');
+    const copyFullHtml = document.getElementById('stb-copy-full-html');
+    const copyInlineCss = document.getElementById('stb-copy-inline-css');
+    if (copySelected) copySelected.onclick = () => copyNativeVariant(state.selectedVariant);
+    if (copyFullHtml) copyFullHtml.onclick = () => copyNativeVariant('fullHtml');
+    if (copyInlineCss) copyInlineCss.onclick = () => copyNativeVariant('inlineCss');
+}
+
+function badgeHtml(label, value) {
+    return `<span class="stb-native-badge">${escHtml(label)} <strong>${escHtml(String(value))}</strong></span>`;
+}
+
+async function copyNativeVariant(variantKey) {
+    const state = STB.nativeImportTest;
+    if (!state) return;
+
+    const value = state.variants[variantKey] || '';
+    if (!value) {
+        showToast('No payload available for that variant.', 'warning');
+        return;
+    }
+
+    try {
+        await navigator.clipboard.writeText(value);
+        const labels = {
+            bodyHtml: 'Sanitized Body HTML',
+            fullHtml: 'Full HTML',
+            inlineCss: 'Inline CSS',
+        };
+        showToast(`${labels[variantKey] || variantKey} copied. Paste it into Bricks to validate native import.`);
+    } catch (err) {
+        console.error('[STB] Clipboard copy failed:', err);
+        showToast('Clipboard copy failed. Select the text manually from the tester.', 'warning');
     }
 }
 
